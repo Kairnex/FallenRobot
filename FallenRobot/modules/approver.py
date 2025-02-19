@@ -1,4 +1,18 @@
-from FallenRobot import app
+import html
+
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, CallbackQueryHandler
+from telegram.utils.helpers import mention_html
+
+import FallenRobot.modules.sql.approve_sql as sql
+from FallenRobot import DRAGONS, dispatcher
+from FallenRobot.modules.disable import DisableAbleCommandHandler
+from FallenRobot.modules.helper_funcs.chat_status import user_admin
+from FallenRobot.modules.helper_funcs.extraction import extract_user
+from FallenRobot.modules.log_channel import loggable
+
+
 
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest
