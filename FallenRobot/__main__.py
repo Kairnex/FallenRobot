@@ -44,7 +44,17 @@ from FallenRobot import (
 from FallenRobot.modules import ALL_MODULES
 from FallenRobot.modules.helper_funcs.chat_status import is_user_admin
 from FallenRobot.modules.helper_funcs.misc import paginate_modules
+from telegram.ext import Updater, Dispatcher
 
+
+def main():
+    updater = Updater(TOKEN, use_context=True)
+    dp: Dispatcher = updater.dispatcher
+    
+    dp.add_handler(join_request_handler) 
+
+    updater.start_polling()
+    updater.idle()
 
 def get_readable_time(seconds: int) -> str:
     count = 0
