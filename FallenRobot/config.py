@@ -221,7 +221,6 @@ def start(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
 
-
 def error_handler(update, context):
     """Log the error and send a telegram message to notify the developer."""
     # Log the error before we do anything else, so we can see it even if something breaks.
@@ -252,32 +251,22 @@ def error_handler(update, context):
 
 # for test purposes
 def error_callback(update: Update, context: CallbackContext):
-    error = context.error
     try:
-        raise error
-    except Unauthorized:
-        print("no nono1")
-        print(error)
-        # remove update.message.chat_id from conversation list
-    except BadRequest:
-        print("no nono2")
-        print("BadRequest caught")
-        print(error)
-
-        # handle malformed requests - read more below!
-    except TimedOut:
-        print("no nono3")
-        # handle slow connection problems
-    except NetworkError:
-        print("no nono4")
-        # handle other connection problems
-    except ChatMigrated as err:
-        print("no nono5")
-        print(err)
-        # the chat_id of a group has changed, use e.new_chat_id instead
-    except TelegramError:
-        print(error)
-        # handle all other telegram related errors
+        raise context.error
+    except Unauthorized as e:
+        LOGGER.warning(f"Unauthorized error: {e}")
+    except BadRequest as e:
+        LOGGER.warning(f"Bad Request error: {e}")
+    except TimedOut as e:
+        LOGGER.warning(f"Timeout error: {e}")
+    except NetworkError as e:
+        LOGGER.warning(f"Network error: {e}")
+    except ChatMigrated as e:
+        LOGGER.warning(f"Chat migrated error: {e}")
+    except TelegramError as e:
+        LOGGER.warning(f"General Telegram error: {e}")
+    except Exception as e:
+        LOGGER.error(f"Unexpected error: {e}", exc_info=True)
 
 
 def help_button(update, context):
