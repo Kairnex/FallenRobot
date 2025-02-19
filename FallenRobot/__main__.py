@@ -7,6 +7,14 @@ from sys import argv
 
 from pyrogram import __version__ as pyrover
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram.ext import Application
+from FallenRobot.config import TOKEN
+from FallenRobot.join_request import join_request_handler
+
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(join_request_handler)
+    app.run_polling()
 from telegram import __version__ as telever
 from telegram.error import (
     BadRequest,
