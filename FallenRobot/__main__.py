@@ -7,9 +7,7 @@ from sys import argv
 
 from pyrogram import __version__ as pyrover
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-from telegram.ext import Application
-from FallenRobot.config import TOKEN
-from FallenRobot.join_request import join_request_handler
+
 from telegram import __version__ as telever
 from telegram.error import (
     BadRequest,
@@ -48,8 +46,23 @@ from FallenRobot import (
 from FallenRobot.modules import ALL_MODULES
 from FallenRobot.modules.helper_funcs.chat_status import is_user_admin
 from FallenRobot.modules.helper_funcs.misc import paginate_modules
+from telegram.ext import Updater
+from FallenRobot.config import TOKEN
+from FallenRobot.join_request import join_request_handler
+import logging
+
+logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO)
+
+def main():
+    updater = Updater(token=TOKEN, use_context=True)
+    dp = updater.dispatcher
+
+    dp.add_handler(join_request_handler)
 
 
+    updater.start_polling()
+    updater.idle()
+    
 def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
@@ -171,12 +184,6 @@ def send_help(chat_id, text, keyboard=None):
         reply_markup=keyboard,
     )
 
-
-
-def main():
-    app = Application.builder().token(TOKEN).build()
-    app.add_handler(join_request_handler)
-    app.run_polling()
     
     
     def start(update: Update, context: CallbackContext):
