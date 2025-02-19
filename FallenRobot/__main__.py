@@ -1,4 +1,3 @@
-
 import importlib
 import re
 import time
@@ -7,7 +6,6 @@ from sys import argv
 
 from pyrogram import __version__ as pyrover
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-
 from telegram import __version__ as telever
 from telegram.error import (
     BadRequest,
@@ -46,23 +44,8 @@ from FallenRobot import (
 from FallenRobot.modules import ALL_MODULES
 from FallenRobot.modules.helper_funcs.chat_status import is_user_admin
 from FallenRobot.modules.helper_funcs.misc import paginate_modules
-from telegram.ext import Updater
-from FallenRobot.config import TOKEN
-from FallenRobot.join_request import join_request_handler
-import logging
-
-logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO)
-
-def main():
-    updater = Updater(token=TOKEN, use_context=True)
-    dp = updater.dispatcher
-
-    dp.add_handler(join_request_handler)
 
 
-    updater.start_polling()
-    updater.idle()
-    
 def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
@@ -97,6 +80,7 @@ PM_START_TEXT = """
 ──────────────────
 *๏ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʜᴇʟᴩ ʙᴜᴛᴛᴏɴ ᴛᴏ ɢᴇᴛ ɪɴғᴏʀᴍᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ᴍʏ ᴍᴏᴅᴜʟᴇs ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs.*
 """
+
 buttons = [
     [
         InlineKeyboardButton(
@@ -113,10 +97,9 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text="🥀 ᴅᴇᴠᴇʟᴏᴩᴇʀ 🥀", url=f"tg://user?id={OWNER_ID}"),
-        InlineKeyboardButton(text="☁ sᴏᴜʀᴄᴇ ☁", callback_data="source_"),
+        InlineKeyboardButton(text="☁️ sᴏᴜʀᴄᴇ ☁️", callback_data="source_"),
     ],
 ]
-
 
 HELP_STRINGS = f"""
 *» {BOT_NAME} ᴇxᴄʟᴜsɪᴠᴇ ꜰᴇᴀᴛᴜʀᴇs*
@@ -188,7 +171,6 @@ def send_help(chat_id, text, keyboard=None):
 def start(update: Update, context: CallbackContext):
     args = context.args
     uptime = get_readable_time((time.time() - StartTime))
-    
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
@@ -238,7 +220,6 @@ def start(update: Update, context: CallbackContext):
             ),
             parse_mode=ParseMode.HTML,
         )
-
 
 
 def error_handler(update, context):
