@@ -184,11 +184,11 @@ def send_help(chat_id, text, keyboard=None):
         reply_markup=keyboard,
     )
 
-    
-    
-    def start(update: Update, context: CallbackContext):
+
+def start(update: Update, context: CallbackContext):
     args = context.args
     uptime = get_readable_time((time.time() - StartTime))
+    
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
@@ -238,6 +238,7 @@ def send_help(chat_id, text, keyboard=None):
             ),
             parse_mode=ParseMode.HTML,
         )
+
 
 
 def error_handler(update, context):
