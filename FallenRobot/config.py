@@ -1,8 +1,8 @@
 import importlib
-import re
 import time
 from platform import python_version as y
 from sys import argv
+import re    
 
 from pyrogram import __version__ as pyrover
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
@@ -269,14 +269,32 @@ def error_callback(update: Update, context: CallbackContext):
         LOGGER.error(f"Unexpected error: {e}", exc_info=True)
 
 
-def help_button(update, context):
+def help_button(update: Update, context: CallbackContext):
     query = update.callback_query
-    mod_match = re.match(r"help_module\((.+?)\)", query.data)
-    prev_match = re.match(r"help_prev\((.+?)\)", query.data)
-    next_match = re.match(r"help_next\((.+?)\)", query.data)
-    back_match = re.match(r"help_back", query.data)
-
-    print(query.message.chat.id)
+    try:
+        if query.data == "help":
+            query.message.edit_text(
+                text=HELP_STRINGS,
+                parse_mode=ParseMode.MARKDOWN,
+                disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(
+                    paginate_modules(0, HELPABLE, "help")
+                ),
+            )
+        elif query.data == "help_back":
+            query.message.edit_text(
+                text=HELP_STRINGS,
+                parse_mode=ParseMode.MARKDOWN,
+                reply_markup=InlineKeyboardMarkup(
+                    paginate_modules(0, HELPABLE, "help")
+                ),
+            )
+        context.bot.answer_callback_query(query.id)
+    except BadRequest as e:
+        if "Button_user_invalid" in str(e):
+            LOGGER.warning("User is invalid or has not interacted with the bot in PM.")
+        else:
+            LOGGER.error(f"Error in help_button: {e}")
 
     try:
         if mod_match:
