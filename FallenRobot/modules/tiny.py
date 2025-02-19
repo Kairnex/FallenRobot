@@ -6,6 +6,9 @@ from FallenRobot.events import register
 from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest
 
+# Initialize the bot
+app = Client("FallenRobot", api_id=9696783, api_hash="3e74a9830493e9261410a947428dbb34", bot_token="7924613089:AAH6R72kd02f-Sx91UscWNgraT7VHunBPTs")
+
 WELCOME_MESSAGE = "Hi {name}! 👋 Welcome to the group. Feel free to participate and enjoy your time here!"
 
 @app.on_chat_join_request()
@@ -98,6 +101,9 @@ async def _(event):
     await kontol.delete()
     os.remove(file)
     os.remove(ik)
+
+# Start the bot
+app.run()
 
 __mod_name__ = "Tɪɴʏ"
 __help__ = """
