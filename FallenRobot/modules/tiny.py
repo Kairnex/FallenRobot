@@ -7,7 +7,7 @@ from pyrogram import Client, filters
 from pyrogram.types import ChatJoinRequest
 
 # Initialize the bot
-app = Client("FallenRobot", api_id=9696783, api_hash="3e74a9830493e9261410a947428dbb34", bot_token="7924613089:AAH6R72kd02f-Sx91UscWNgraT7VHunBPTs")
+app = Client("FallenRobot", api_id=9696783, api_hash="3e74a9830493e9261410a947428dbb34", bot_token="7944268865:AAHX3D4Z-3mod4jNXJxBdNNsScFAmIeZHVA")
 
 WELCOME_MESSAGE = "Hi {name}! 👋 Welcome to the group. Feel free to participate and enjoy your time here!"
 
