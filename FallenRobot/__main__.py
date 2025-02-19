@@ -10,11 +10,6 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Upda
 from telegram.ext import Application
 from FallenRobot.config import TOKEN
 from FallenRobot.join_request import join_request_handler
-
-def main():
-    app = Application.builder().token(TOKEN).build()
-    app.add_handler(join_request_handler)
-    app.run_polling()
 from telegram import __version__ as telever
 from telegram.error import (
     BadRequest,
@@ -177,7 +172,14 @@ def send_help(chat_id, text, keyboard=None):
     )
 
 
-def start(update: Update, context: CallbackContext):
+
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(join_request_handler)
+    app.run_polling()
+    
+    
+    def start(update: Update, context: CallbackContext):
     args = context.args
     uptime = get_readable_time((time.time() - StartTime))
     if update.effective_chat.type == "private":
