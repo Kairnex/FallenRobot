@@ -9,7 +9,7 @@ class Config(object):
 
     DATABASE_URL = "postgres://u6n1pffsk11ibd:p4149ea98c8b460704146ec5b87a689fd62b7bab3d06d1fa6f952f89eb84b7568@c1vo05l6n8k8mv.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d1bqch8k0bcb4r"  # A sql database url from elephantsql.com
 
-    EVENT_LOGS = ()  # Event logs channel to note down important bot level events
+    EVENT_LOGS = (-1002404751523)  # Event logs channel to note down important bot level events
 
     MONGO_DB_URI = "mongodb+srv://ayanosuvii0925:subhichiku123@cluster0.uw8yxkl.mongodb.net/mydatabase"  # Get ths value from cloud.mongodb.com
 
